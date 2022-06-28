@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
-import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
+import {
+  utilities as nestWinstonModuleUtilities,
+  WinstonModule,
+} from 'nest-winston';
 import * as winston from 'winston';
 import * as path from 'path';
-
+import { LoggerService } from './logger.service';
+import { KafkaModule } from '../kafka/kafka.module';
 @Module({
   imports: [
     WinstonModule.forRoot({
@@ -15,7 +19,9 @@ import * as path from 'path';
           format: winston.format.combine(
             winston.format.timestamp(),
             winston.format.ms(),
-            nestWinstonModuleUtilities.format.nestLike('Payments', { prettyPrint: true }),
+            nestWinstonModuleUtilities.format.nestLike('Payments', {
+              prettyPrint: true,
+            }),
           ),
         }),
         new winston.transports.File({
@@ -32,5 +38,6 @@ import * as path from 'path';
       ],
     }),
   ],
+  providers: [LoggerService],
 })
 export class LoggerModule {}

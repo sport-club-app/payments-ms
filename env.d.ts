@@ -12,13 +12,25 @@ declare global {
         | 'oracle'
         | 'postgres'
         | 'sqlite';
+      METRICS_DB_HOST: string
+      METRICS_DB: string;
+      METRICS_DB_USER: string;
+      METRICS_DB_PASSWORD: string
+      METRICS_DB_PORT: number
+      METRICS_DB_ENGINE:
+        | 'mariadb'
+        | 'mongodb'
+        | 'mssql'
+        | 'oracle'
+        | 'postgres'
+        | 'sqlite';
       DB_HOST: string;
       DB_USER: string;
       DB_DATABASE: string;
       DB_PASSWORD: string;
       DB_PORT: number;
-      KAFKA_BROKER: string
-      KAFKA_CLIENT_ID: string
+      KAFKA_BROKER: string;
+      KAFKA_CLIENT_ID: string;
     }
   }
 }

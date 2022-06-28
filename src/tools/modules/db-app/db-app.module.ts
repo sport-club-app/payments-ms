@@ -16,4 +16,4 @@ import { PaymentMethods } from '../../../app/modules/payment-methods/payment-met
     }),
   ],
 })
-export class DbSqlModule {}
+export class DbAppModule {}
