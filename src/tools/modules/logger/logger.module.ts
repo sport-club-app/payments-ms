@@ -9,6 +9,7 @@ import { LoggerService } from './logger.service';
 import { KafkaModule } from '../kafka/kafka.module';
 @Module({
   imports: [
+    KafkaModule,
     WinstonModule.forRoot({
       format: winston.format.combine(
         winston.format.timestamp(),

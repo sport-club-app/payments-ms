@@ -17,4 +17,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
     ],
   })
-export class MetricsDb {}
+export class LoggerDb {}

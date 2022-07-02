@@ -6,8 +6,9 @@ import { DbAppModule } from './tools/modules/db-app/db-app.module';
 import { LoggerModule } from './tools/modules/logger/logger.module';
 import { LoggerMiddleware } from './app/middlewares/logger/logger.middleware';
 import { KafkaModule } from './tools/modules/kafka/kafka.module';
-import { MetricsDb } from './tools/modules/metrics-db/metrics-db.module';
+import { LoggerDb } from './tools/modules/logger-db/logger-db.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+
 
 
 
@@ -18,8 +19,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     DbAppModule,
     LoggerModule,
     KafkaModule,
-    MetricsDb,
-    EventEmitterModule.forRoot()
+    LoggerDb,
+    EventEmitterModule.forRoot(),
   ],
   controllers: [HealthController],
 })
