@@ -3,9 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { PaymentMethods } from './payment-methods.entity';
 import { IPaymentMethods, IPaymentMethodsService } from './interfaces';
-import { CreatePaymentMethodDto } from './create-payment-methods.dto';
+import { CreatePaymentMethodRequestDto } from './interfaces/create-payment-method-request.dto';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
+import { OnEvent } from '@nestjs/event-emitter';
+import { LoggerMiddlewareDtoCreate } from 'src/tools/modules/logger/logger.middleware.create.dto';
 
 @Injectable()
 export class PaymentMethodsService implements IPaymentMethodsService {
@@ -14,6 +16,7 @@ export class PaymentMethodsService implements IPaymentMethodsService {
     @InjectRepository(PaymentMethods)
     private paymentMethodsRepository: Repository<PaymentMethods>,
   ) {}
+
 
   async findAll(): Promise<IPaymentMethods[]> {
     return this.paymentMethodsRepository.find();
@@ -28,8 +31,8 @@ export class PaymentMethodsService implements IPaymentMethodsService {
   }
 
   async create(
-    paymentMethods: CreatePaymentMethodDto,
-  ): Promise<IPaymentMethods | HttpException> {
+    paymentMethods: CreatePaymentMethodRequestDto,
+  ): Promise<IPaymentMethods> {
 
     try{
       this.logger.info(`Criando Metodo de pagamento: ${paymentMethods.name}`, {

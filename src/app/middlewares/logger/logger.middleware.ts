@@ -2,13 +2,15 @@ import { Injectable, NestMiddleware, Inject } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { LoggerMiddlewareDtoCreate } from '../../../tools/modules/logger/logger.middleware.create.dto';
-
+import { uuid } from 'uuidv4';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   constructor(private eventEmitter: EventEmitter2) {}
 
   use(req: Request, res: Response, next: NextFunction) {
+    const traceId = uuid()
     const data: LoggerMiddlewareDtoCreate = {
+      traceId: traceId,
       middleware: LoggerMiddleware.name,
       ip: req.ip,
       method: req.method,
@@ -19,6 +21,7 @@ export class LoggerMiddleware implements NestMiddleware {
       origin: req.headers.origin,
       token: req.headers.authorization,
     };
+    req.headers = {...req.headers, traceId: traceId}
     this.eventEmitter.emit('middleware.logs.created', data);
     next();
   }

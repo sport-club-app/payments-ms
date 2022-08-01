@@ -1,4 +1,5 @@
 export class LoggerMiddlewareDtoCreate {
+  traceId: string
   middleware: string;
   ip: string;
   method: string;

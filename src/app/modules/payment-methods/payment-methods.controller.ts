@@ -7,11 +7,13 @@ import {
   Param,
   HttpStatus,
   HttpException,
+  Request,
 } from '@nestjs/common';
 import { PaymentMethodsService } from './payment-methods.service';
-import { CreatePaymentMethodDto } from './create-payment-methods.dto';
+import { CreatePaymentMethodRequestDto } from './interfaces/create-payment-method-request.dto';
 import { IPaymentMethods } from './interfaces/payment-methods.interface';
 import { DeleteResult } from 'typeorm';
+import { CreatePaymentMethodResponseDto } from './interfaces/create-payment-method-response.dto';
 
 @Controller('payment-methods')
 export class PaymentMethodsController {
@@ -19,11 +21,13 @@ export class PaymentMethodsController {
 
   @Post()
   async create(
-    @Body() paymentMethods: CreatePaymentMethodDto,
+    @Body() paymentMethods: CreatePaymentMethodRequestDto,
+    @Request() req: any,
   ): Promise<IPaymentMethods | HttpException> {
-    const paymentMethod = await this.paymentMethodsService.create(
-      paymentMethods,
-    );
+    const paymentMethod = await this.paymentMethodsService.create({
+      ...paymentMethods,
+      traceId: req.headers.traceId,
+    });
     if (!paymentMethod)
       throw new HttpException(
         {
@@ -32,7 +36,13 @@ export class PaymentMethodsController {
         },
         HttpStatus.BAD_REQUEST,
       );
-    return paymentMethod;
+
+    const createPaymentMethodResponseDto = {
+      name: paymentMethod.name,
+      description: paymentMethod.description
+    } as CreatePaymentMethodResponseDto
+
+    return createPaymentMethodResponseDto;
   }
 
   @Get()

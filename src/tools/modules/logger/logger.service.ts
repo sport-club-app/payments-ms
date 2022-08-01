@@ -24,7 +24,7 @@ export class LoggerService {
   handleLoggerCreatedEvent(event: LoggerMiddlewareDtoCreate) {
     this.logger.info('middleware-logs', event);
     this.kafkaClient.emit('payments.logs', {
-      key: uuid(),
+      key: event.traceId,
       value: JSON.stringify(event),
     });
   }

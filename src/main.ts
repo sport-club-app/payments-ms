@@ -7,12 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Payments Api')
-    .setDescription('The Payments API description')
+    .setDescription('API de Pagamentos')
     .setVersion(version)
     .addTag('payments')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
   await app.listen(process.env.APP_PORT);
 }
 bootstrap();

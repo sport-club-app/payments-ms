@@ -8,7 +8,7 @@ import { LoggerMiddleware } from './app/middlewares/logger/logger.middleware';
 import { KafkaModule } from './tools/modules/kafka/kafka.module';
 import { LoggerDb } from './tools/modules/logger-db/logger-db.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-
+import {PaymentTransactionModule} from "./app/modules/payment-transactions/payment-transactions.module"
 
 
 
@@ -21,6 +21,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     KafkaModule,
     LoggerDb,
     EventEmitterModule.forRoot(),
+    PaymentTransactionModule
   ],
   controllers: [HealthController],
 })

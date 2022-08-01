@@ -11,4 +11,7 @@ export class PaymentMethods implements IPaymentMethods {
 
   @Column()
   description?: string;
+
+  @Column()
+  traceId?: string;
 }
