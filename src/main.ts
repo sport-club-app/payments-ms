@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('Payments Api')
     .setDescription('API de Pagamentos')
     .setVersion(version)
-    .addTag('payments')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

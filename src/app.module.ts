@@ -6,7 +6,6 @@ import { DbAppModule } from './tools/modules/db-app/db-app.module';
 import { LoggerModule } from './tools/modules/logger/logger.module';
 import { LoggerMiddleware } from './app/middlewares/logger/logger.middleware';
 import { KafkaModule } from './tools/modules/kafka/kafka.module';
-import { LoggerDb } from './tools/modules/logger-db/logger-db.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import {PaymentTransactionModule} from "./app/modules/payment-transactions/payment-transactions.module"
 
@@ -19,7 +18,6 @@ import {PaymentTransactionModule} from "./app/modules/payment-transactions/payme
     DbAppModule,
     LoggerModule,
     KafkaModule,
-    LoggerDb,
     EventEmitterModule.forRoot(),
     PaymentTransactionModule
   ],
@@ -29,6 +27,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes('payment-methods');
+      .forRoutes('payment-methods', 'payment-transactions');
   }
 }

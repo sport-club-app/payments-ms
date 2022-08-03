@@ -1,7 +1,6 @@
-export interface CreatePaymentTransactionRequestDto {
-  numero: number
-  mes: number
-  ano: number
-  cvv: number
-  nome: string
+import { status } from "./payment-transaction.interface"
+
+export class CreatePaymentTransactionRequestDto {
+  contractId: number
+  status: status
 }
